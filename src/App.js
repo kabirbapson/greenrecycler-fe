@@ -83,7 +83,7 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 // import Footer from "components/footers/MiniCenteredFooter.js";
 
 /* Ready Made Pages (from demos folder) */
-// import EventLandingPage from "demos/EventLandingPage.js";
+import EventLandingPage from "demos/EventLandingPage.js";
 // import HotelTravelLandingPage from "demos/HotelTravelLandingPage.js";
 // import AgencyLandingPage from "demos/AgencyLandingPage.js";
 // import SaaSProductLandingPage from "demos/SaaSProductLandingPage.js";
@@ -111,7 +111,6 @@ export default function App() {
   // If you want to disable the animation just use the disabled `prop` like below on your page's component
   // return <AnimationRevealPage disabled>xxxxxxxxxx</AnimationRevealPage>;
 
-
   return (
     <Router>
       <Switch>
@@ -125,7 +124,7 @@ export default function App() {
           <ThankYouPage />
         </Route>
         <Route path="/">
-          <MainLandingPage />
+          <EventLandingPage />
         </Route>
       </Switch>
     </Router>
