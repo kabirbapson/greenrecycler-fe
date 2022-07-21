@@ -13,19 +13,19 @@ const HeadingDescription = tw.p`mt-4 font-medium text-gray-600 text-center max-w
 
 const Content = tw.div`mt-16`;
 
-const Card = styled.div(props => [
+const Card = styled.div((props) => [
   tw`mt-24 md:flex justify-center items-center`,
-  props.reversed ? tw`flex-row-reverse` : "flex-row"
+  props.reversed ? tw`flex-row-reverse` : "flex-row",
 ]);
-const Image = styled.div(props => [
+const Image = styled.div((props) => [
   `background-image: url("${props.imageSrc}");`,
-  tw`rounded md:w-1/2 lg:w-5/12 xl:w-1/3 flex-shrink-0 h-80 md:h-144 bg-cover bg-center mx-4 sm:mx-8 md:mx-4 lg:mx-8`
+  tw`rounded md:w-1/2 lg:w-5/12 xl:w-1/3 flex-shrink-0 h-80 md:h-144 bg-cover bg-center mx-4 sm:mx-8 md:mx-4 lg:mx-8`,
 ]);
 const Details = tw.div`mt-4 md:mt-0 md:max-w-md mx-4 sm:mx-8 md:mx-4 lg:mx-8`;
 const Subtitle = tw.div`font-bold tracking-wide text-secondary-100`;
 const Title = tw.h4`text-3xl font-bold text-gray-900`;
 const Description = tw.p`mt-2 text-sm leading-loose`;
-const Link = tw.a`inline-block mt-4 text-sm text-primary-500 font-bold cursor-pointer transition duration-300 border-b-2 border-transparent hover:border-primary-500`;
+// const Link = tw.a`inline-block mt-4 text-sm text-primary-500 font-bold cursor-pointer transition duration-300 border-b-2 border-transparent hover:border-primary-500`;
 
 const SvgDotPattern1 = tw(
   SvgDotPatternIcon
@@ -44,42 +44,43 @@ export default () => {
   const cards = [
     {
       imageSrc:
-        "https://images.unsplash.com/photo-1550699026-4114bbf4fb49?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=632&q=80",
-      subtitle: "Paid",
-      title: "Loachella, NYC",
+        "https://drive.google.com/file/d/1bNyzG1RXRSlVSnEIkdvi4nnM14YOIU-7/view",
+      // subtitle: "Waste Management",
+      title: "Proper Waste Management",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      url: "https://timerse.com"
+        "Proper waste management is essential today in every society. Due to an increase in population, the generation of waste is increasing at an astronomical rate day by day. Moreover, the increase in waste generation is affecting the lives of many people when managed poorly.        ",
+      url: "https://timerse.com",
     },
 
     {
       imageSrc:
         "https://images.unsplash.com/photo-1543423924-b9f161af87e4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
-      subtitle: "Free",
-      title: "Rock In Rio, Upstate",
+      // subtitle: "Free",
+      title: "Poor waste management",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      url: "https://timerse.com"
+        "Poor waste management contributes to many known issues both globally and locally.  Without proper waste management activities, the massive production industries produce too much that will quickly destroy our environment. Environmental issues such as air pollution, water pollution, land pollution, climate change, extreme weather, animal and marine death, among others directly affects many ecosystems and species.  Landfills, considered the last resort in the waste hierarchy, release methane, a very powerful greenhouse gas linked to climate change.  ",
+      url: "https://timerse.com",
     },
 
     {
       imageSrc:
         "https://images.unsplash.com/photo-1509824227185-9c5a01ceba0d?ixlib=rb-1.2.1&auto=format&fit=crop&w=658&q=80",
-      subtitle: "Exclusive",
-      title: "Lollapalooza, Manhattan",
+      // subtitle: "Exclusive",
+      title: "Some Qualms on Waste",
       description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      url: "https://timerse.com"
-    }
+        "climate change and air pollution: Landfills, considered the last resort in the waste hierarchy, release powerful greenhouses gas linked to climate change.        ",
+      url: "https://timerse.com",
+    },
   ];
 
   return (
     <Container>
       <SingleColumn>
         <HeadingInfoContainer>
-          <HeadingTitle>Popular Events</HeadingTitle>
+          <HeadingTitle>Green Recycler</HeadingTitle>
           <HeadingDescription>
-            Here are some of the most popular events in New York City curated by professionals.
+            A Social enterprise focusing on non-hazardous waste recovery
+            directly from households and businesses.
           </HeadingDescription>
         </HeadingInfoContainer>
 
@@ -91,7 +92,7 @@ export default () => {
                 <Subtitle>{card.subtitle}</Subtitle>
                 <Title>{card.title}</Title>
                 <Description>{card.description}</Description>
-                <Link href={card.url}>See Event Details</Link>
+                {/* <Link href={card.url}>See Event Details</Link> */}
               </Details>
             </Card>
           ))}
