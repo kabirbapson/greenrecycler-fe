@@ -11,7 +11,7 @@ import Header, {
   NavToggle,
   DesktopNavLinks,
 } from "../headers/light.js";
-import TwoColumnWithInput from "./TwoColumnWithInput.js";
+// import TwoColumnWithInput from "./TwoColumnWithInput.js";
 
 const StyledHeader = styled(Header)`
   ${tw`pt-8 max-w-none w-full`}
