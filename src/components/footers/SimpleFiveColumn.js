@@ -50,7 +50,7 @@ export default () => {
             directly from households and businesses.
           </CompanyDescription>
           <SocialLinksContainer>
-            <SocialLink href="#">
+            <SocialLink href="http://facebook.com/greenrecycler">
               <FacebookIcon />
             </SocialLink>
             <SocialLink href="#">

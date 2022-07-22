@@ -3,6 +3,9 @@ import styled from "styled-components";
 import tw from "twin.macro";
 import { ReactComponent as SvgDotPatternIcon } from "../../images/dot-pattern.svg";
 import { SectionHeading as HeadingTitle } from "../misc/Headings.js";
+import featuresPicOne from "../../images/GRpicker.png";
+import featuresPicTwo from "../../images/GRStuff.png";
+import featuresPicThree from "../../images/GRBrain.png";
 
 const Container = tw.div`relative`;
 
@@ -24,7 +27,11 @@ const Image = styled.div((props) => [
 const Details = tw.div`mt-4 md:mt-0 md:max-w-md mx-4 sm:mx-8 md:mx-4 lg:mx-8`;
 const Subtitle = tw.div`font-bold tracking-wide text-secondary-100`;
 const Title = tw.h4`text-3xl font-bold text-gray-900`;
-const Description = tw.p`mt-2 text-sm leading-loose`;
+const DescriptionOne = tw.p`mt-2 text-sm leading-loose`;
+const DescriptionTwo = tw.p`mt-2 text-sm leading-loose`;
+const DescriptionThree = tw.p`mt-2 text-sm leading-loose`;
+const texty = "\n";
+
 // const Link = tw.a`inline-block mt-4 text-sm text-primary-500 font-bold cursor-pointer transition duration-300 border-b-2 border-transparent hover:border-primary-500`;
 
 const SvgDotPattern1 = tw(
@@ -43,32 +50,52 @@ const SvgDotPattern4 = tw(
 export default () => {
   const cards = [
     {
-      imageSrc:
-        "https://drive.google.com/file/d/1bNyzG1RXRSlVSnEIkdvi4nnM14YOIU-7/view",
+      imageSrc: featuresPicOne,
       // subtitle: "Waste Management",
       title: "Proper Waste Management",
       description:
-        "Proper waste management is essential today in every society. Due to an increase in population, the generation of waste is increasing at an astronomical rate day by day. Moreover, the increase in waste generation is affecting the lives of many people when managed poorly.        ",
+        " Proper waste management is essential today in every society. Due to an increase in population, the generation of waste is increasing at an astronomical rate day by day.  Moreover, the increase in waste generation is affecting the lives of many people when managed poorly.",
+      titleA: "Poor Waste Management",
+      DescriptionA: ` Poor waste management contributes to many known issues both globally and locally. 
+        Without proper waste management activities, the massive production industries produce too much that will quickly destroy our environment. 
+        Environmental issues such as air pollution, water pollution, land pollution, climate change, extreme weather, animal and marine death, among others directly affects many ecosystems and species. 
+        Landfills, considered the last resort in the waste hierarchy, release methane, a very powerful greenhouse gas linked to climate change.
+        `,
       url: "https://timerse.com",
     },
 
     {
-      imageSrc:
-        "https://images.unsplash.com/photo-1543423924-b9f161af87e4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80",
+      imageSrc: featuresPicTwo,
       // subtitle: "Free",
-      title: "Poor waste management",
-      description:
-        "Poor waste management contributes to many known issues both globally and locally.  Without proper waste management activities, the massive production industries produce too much that will quickly destroy our environment. Environmental issues such as air pollution, water pollution, land pollution, climate change, extreme weather, animal and marine death, among others directly affects many ecosystems and species.  Landfills, considered the last resort in the waste hierarchy, release methane, a very powerful greenhouse gas linked to climate change.  ",
+      titleA: "Values",
+      DescriptionA: `The following values explain the core nature of Green Recycler.  `,
+      // titleB: "Poor Waste Management",
+      DescriptionB: `Leadership: 
+
+      Green Recycler is committed to demonstrating its leadership in the circular economy industry and overall environmental stewardship through the use of proven  technology, and by establishing public-private partnerships and working cooperatively with individuals and our member communities. 
+      
+      Excellence: 
+      
+      All of us are focused on continuous improvement, on maintaining the highest standards for customer service, and on making every effort to improve the quality of the programs, services and facilities we manage. 
+      
+      Integrity: 
+      Green Recycler has high ethical standards, and we work in a manner that is open, honest, accountable and transparent. 
+
+      Passion:
+
+      We all are passionate about many things, Serving our customers, improving the environment and the quality of life in Nigeria, and providing top-notch, cost-effective programs for all our  Customers.
+
+       `,
       url: "https://timerse.com",
     },
 
     {
-      imageSrc:
-        "https://images.unsplash.com/photo-1509824227185-9c5a01ceba0d?ixlib=rb-1.2.1&auto=format&fit=crop&w=658&q=80",
+      imageSrc: featuresPicThree,
       // subtitle: "Exclusive",
-      title: "Some Qualms on Waste",
-      description:
-        "climate change and air pollution: Landfills, considered the last resort in the waste hierarchy, release powerful greenhouses gas linked to climate change.        ",
+      title: "Vision",
+      description: `The Green Recycler vision statement is “Stop the Running Tap.” \n  This means we work to fulfill our mission without wasting environmental, financial or people resources. Establishing partnerships and maintaining sustainability are a primary way we can fulfill our vision. 
+      `,
+
       url: "https://timerse.com",
     },
   ];
@@ -91,7 +118,11 @@ export default () => {
               <Details>
                 <Subtitle>{card.subtitle}</Subtitle>
                 <Title>{card.title}</Title>
-                <Description>{card.description}</Description>
+                <description>{card.description}</description>
+                <Title>{card.titleA}</Title>
+                <description>{card.DescriptionA}</description>
+                <Title>{card.titleB}</Title>
+                <description>{card.DescriptionB}</description>
                 {/* <Link href={card.url}>See Event Details</Link> */}
               </Details>
             </Card>

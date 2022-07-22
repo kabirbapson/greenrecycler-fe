@@ -13,6 +13,10 @@ import { ReactComponent as SvgDecoratorBlob2 } from "../../images/svg-decorator-
 
 import "slick-carousel/slick/slick.css";
 
+import sanusi from "../../images/GRSanusi.png";
+import Macd from "../../images/GRMacd.png";
+import Faliyu from "../../images/GRFaliyu.png";
+
 const Container = tw.div`relative`;
 const Content = tw.div`max-w-screen-xl mx-auto py-20 lg:py-24`;
 const HeadingInfoContainer = tw.div`flex flex-col items-center`;
@@ -34,8 +38,12 @@ const CustomerInfo = tw.div`px-5 lg:px-10 text-center md:text-left mt-4 md:mt-0`
 const CustomerName = tw.h5`font-bold text-lg lg:text-xl xl:text-2xl text-primary-500`;
 const CustomerTitle = tw.p`font-medium text-sm`;
 
-const QuotesLeft = tw(QuotesLeftIcon)`w-8 h-8 lg:w-10 lg:h-10 text-primary-500 absolute top-0 left-0`;
-const QuotesRight = tw(QuotesRightIcon)`w-8 h-8 lg:w-10 lg:h-10 text-primary-500 absolute bottom-0 right-0`;
+const QuotesLeft = tw(
+  QuotesLeftIcon
+)`w-8 h-8 lg:w-10 lg:h-10 text-primary-500 absolute top-0 left-0`;
+const QuotesRight = tw(
+  QuotesRightIcon
+)`w-8 h-8 lg:w-10 lg:h-10 text-primary-500 absolute bottom-0 right-0`;
 
 const SliderControlButtonContainer = styled.div`
   ${tw`absolute top-0 h-full flex items-end md:items-center z-20`}
@@ -76,43 +84,45 @@ export default () => {
    */
   const testimonials = [
     {
-      imageSrc:
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=3.25&w=512&h=512&q=80",
+      imageSrc: sanusi,
       quote:
-        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.",
-      customerName: "Charlotte Hale",
-      customerTitle: "CEO, Delos Inc."
+        "We believe people need more products specifically dedicated to ease solving the problem ",
+      customerName: " Muhammed Sanusi",
+      customerTitle: "CEO, Founder",
     },
     {
-      imageSrc:
-        "https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=512&h=512&q=80",
+      imageSrc: Faliyu,
       quote:
-        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.",
-      customerName: "Adam Cuppy",
-      customerTitle: "Founder, EventsNYC"
+        "   We based our research on market trends and reality on field    ",
+      customerName: "Fatima M. Aliyu ",
+      customerTitle: " Communication Officer",
     },
     {
-      imageSrc:
-        "https://images.unsplash.com/photo-1580852300654-03c803a14e24?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4.25&w=512&h=512&q=80",
-      quote:
-        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.",
-      customerName: "Steven Marcetti",
-      customerTitle: "Event Manager, Brite"
-    }
+      imageSrc: Macd,
+      quote: "Minimalist and easy to use for all category ​        ",
+      customerName: "      Mc Donald",
+      customerTitle: "Chief Operations Officer​",
+    },
   ];
   return (
     <Container>
       <Content>
         <HeadingInfoContainer>
-          <HeadingTitle>Our Awesome Customers</HeadingTitle>
+          <HeadingTitle>Meet the Team</HeadingTitle>
           <HeadingDescription></HeadingDescription>
         </HeadingInfoContainer>
         <TestimonialSliderContainer>
-          <TestimonialSlider nextArrow={<NextArrow />} prevArrow={<PreviousArrow />}>
+          <TestimonialSlider
+            nextArrow={<NextArrow />}
+            prevArrow={<PreviousArrow />}
+          >
             {testimonials.map((testimonial, index) => (
               <Testimonial key={index}>
                 <ImageContainer>
-                  <img src={testimonial.imageSrc} alt={testimonial.customerName} />
+                  <img
+                    src={testimonial.imageSrc}
+                    alt={testimonial.customerName}
+                  />
                 </ImageContainer>
                 <TextContainer>
                   <QuoteContainer>
