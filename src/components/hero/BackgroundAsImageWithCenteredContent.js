@@ -52,7 +52,13 @@ export default () => {
       <NavLink href="#">Pricing</NavLink>
     </NavLinks>,
     <NavLinks key={2}>
-      <PrimaryLink href="/#">Login</PrimaryLink>
+      <PrimaryLink href="/login">Login</PrimaryLink>
+      <PrimaryLink
+        style={{ backgroundColor: "#FFCC00", marginLeft: "10px" }}
+        href="/register"
+      >
+        Register
+      </PrimaryLink>
     </NavLinks>,
   ];
 
