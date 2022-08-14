@@ -9,6 +9,15 @@ import illustration from "images/signup-illustration.svg";
 // import googleIconImageSrc from "images/google-icon.png";
 // import twitterIconImageSrc from "images/twitter-icon.png";
 import { ReactComponent as SignUpIcon } from "feather-icons/dist/icons/user-plus.svg";
+import { Formik } from "formik";
+import * as yup from "yup";
+import { signUpValidationSchema } from "utils/validators";
+
+import { useHistory } from "react-router-dom";
+
+import * as redux from "react-redux";
+import { CircularProgress } from "@mui/material";
+import { register } from "store/auth";
 
 const Container = tw(
   ContainerBase
@@ -38,7 +47,7 @@ const FormContainer = tw.div`w-full flex-1 mt-8`;
 // const DividerTextContainer = tw.div`my-12 border-b text-center relative`;
 // const DividerText = tw.div`leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform -translate-y-1/2 absolute inset-x-0 top-1/2 bg-transparent`;
 
-const Form = tw.form`mx-auto max-w-xs`;
+const Form = tw.div`mx-auto max-w-xs`;
 const Input = tw.input`w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5 first:mt-0`;
 const SubmitButton = styled.button`
   ${tw`mt-5 tracking-wide font-semibold bg-primary-500 text-gray-100 w-full py-4 rounded-lg hover:bg-primary-900 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none`}
@@ -54,6 +63,13 @@ const IllustrationImage = styled.div`
   ${(props) => `background-image: url("${props.imageSrc}");`}
   ${tw`m-12 xl:m-16 w-full max-w-lg bg-contain bg-center bg-no-repeat`}
 `;
+
+const registerInitialValue = {
+  fullName: "",
+  username: "",
+  email: "",
+  password: "",
+};
 
 export default ({
   // logoLinkUrl = "#",
@@ -76,58 +92,148 @@ export default ({
   tosUrl = "#",
   privacyPolicyUrl = "#",
   signInUrl = "/login",
-}) => (
-  <AnimationRevealPage>
-    <Container>
-      <Content>
-        <MainContainer>
-          {/* <LogoLink href={logoLinkUrl}>
-            <LogoImage src={logo} />
-          </LogoLink> */}
-          <MainContent>
-            <Heading>{headingText}</Heading>
-            <FormContainer>
-              <Form>
-                <Input type="email" placeholder="Full name" />
-                <Input type="password" placeholder="Email" />
-                {/* <Input type="password" placeholder="Password" /> */}
-                <Input type="password" placeholder="Username" />
-                <Input type="password" placeholder="Password" />
-                <SubmitButton type="submit">
-                  <SubmitButtonIcon className="icon" />
-                  <span className="text">{submitButtonText}</span>
-                </SubmitButton>
-                <p tw="mt-6 text-xs text-gray-600 text-center">
-                  I agree to abide by treact's{" "}
-                  <a href={tosUrl} tw="border-b border-gray-500 border-dotted">
-                    Terms of Service
-                  </a>{" "}
-                  and its{" "}
-                  <a
-                    href={privacyPolicyUrl}
-                    tw="border-b border-gray-500 border-dotted"
-                  >
-                    Privacy Policy
-                  </a>
-                </p>
+}) => {
+  const history = useHistory();
+  const dispatch = redux.useDispatch();
+  const { loading, isAuthenticated } = redux.useSelector((state) => state.auth);
 
-                <p tw="mt-8 text-sm text-gray-600 text-center">
-                  Already have an account?{" "}
-                  <a
-                    href={signInUrl}
-                    tw="border-b border-gray-500 border-dotted"
-                  >
-                    Sign In
-                  </a>
-                </p>
-              </Form>
-            </FormContainer>
-          </MainContent>
-        </MainContainer>
-        <IllustrationContainer>
-          <IllustrationImage imageSrc={illustrationImageSrc} />
-        </IllustrationContainer>
-      </Content>
-    </Container>
-  </AnimationRevealPage>
-);
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      history.push("/");
+    }
+  }, [history, isAuthenticated]);
+
+  const signInUser = (form) => {
+    const { fullName, username, email, password } = form;
+
+    dispatch(
+      register({
+        first_name: fullName.split(" ")[0],
+        last_name: fullName.split(" ")[1],
+        username,
+        email,
+        password,
+      })
+    );
+  };
+
+  return (
+    <AnimationRevealPage>
+      <Container>
+        <Content>
+          <MainContainer>
+            <MainContent>
+              <Heading>{headingText}</Heading>
+              <FormContainer>
+                <Formik
+                  validationSchema={signUpValidationSchema}
+                  initialValues={registerInitialValue}
+                  onSubmit={(value) => signInUser(value)}
+                >
+                  {({
+                    values,
+                    handleChange,
+                    errors,
+                    isValid,
+                    handleSubmit,
+                  }) => (
+                    <Form>
+                      <Input
+                        type="text"
+                        placeholder="Full name"
+                        name="fullName"
+                        value={values.fullName}
+                        onChange={handleChange("fullName")}
+                      />
+                      {errors.fullName && (
+                        <p tw=" text-sm text-red-600 text-center">
+                          {errors.fullName}
+                        </p>
+                      )}
+                      <Input
+                        type="email"
+                        placeholder="Email"
+                        name="email"
+                        value={values.email}
+                        onChange={handleChange("email")}
+                      />
+                      {errors.email && (
+                        <p tw=" text-sm text-red-600 text-center">
+                          {errors.email}
+                        </p>
+                      )}
+                      {/* <Input type="password" placeholder="Password" /> */}
+                      <Input
+                        type="text"
+                        placeholder="Username"
+                        name="username"
+                        value={values.username}
+                        onChange={handleChange("username")}
+                      />
+                      {errors.username && (
+                        <p tw=" text-sm text-red-600 text-center">
+                          {errors.username}
+                        </p>
+                      )}
+                      <Input
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                        value={values.password}
+                        onChange={handleChange("password")}
+                      />
+                      {errors.password && (
+                        <p tw=" text-sm text-red-600 text-center">
+                          {errors.password}
+                        </p>
+                      )}
+                      <SubmitButton onClick={handleSubmit}>
+                        {loading ? (
+                          <CircularProgress size={20} />
+                        ) : (
+                          <>
+                            <SubmitButtonIcon className="icon" />
+                            <span className="text">{submitButtonText}</span>
+                          </>
+                        )}
+                      </SubmitButton>
+                      <p tw="mt-6 text-xs text-gray-600 text-center">
+                        I agree to abide by treact's{" "}
+                        <a
+                          href={tosUrl}
+                          tw="border-b border-gray-500 border-dotted"
+                        >
+                          Terms of Service
+                        </a>{" "}
+                        and its{" "}
+                        <a
+                          href={privacyPolicyUrl}
+                          tw="border-b border-gray-500 border-dotted"
+                        >
+                          Privacy Policy
+                        </a>
+                      </p>
+
+                      <p tw="mt-8 text-sm text-gray-600 text-center">
+                        Already have an account?{" "}
+                        <a
+                          href={signInUrl}
+                          tw="border-b border-gray-500 border-dotted"
+                        >
+                          Sign In
+                        </a>
+                      </p>
+                    </Form>
+                  )}
+                </Formik>
+              </FormContainer>
+            </MainContent>
+          </MainContainer>
+          <IllustrationContainer>
+            <IllustrationImage imageSrc={illustrationImageSrc} />
+          </IllustrationContainer>
+        </Content>
+      </Container>
+    </AnimationRevealPage>
+  );
+};

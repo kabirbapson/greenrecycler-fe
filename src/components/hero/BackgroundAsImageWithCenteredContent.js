@@ -12,6 +12,8 @@ import Header, {
   DesktopNavLinks,
 } from "../headers/light.js";
 // import TwoColumnWithInput from "./TwoColumnWithInput.js";
+import * as redux from "react-redux";
+import { logout } from "store/auth.js";
 
 const StyledHeader = styled(Header)`
   ${tw`pt-8 max-w-none w-full`}
@@ -44,6 +46,14 @@ const Heading = styled.h1`
 const PrimaryAction = tw.button`rounded-full px-8 py-3 mt-10 text-sm sm:text-base sm:mt-16 sm:px-8 sm:py-4 bg-gray-100 font-bold shadow transition duration-300 bg-primary-500 text-gray-100 hocus:bg-primary-700 hocus:text-gray-200 focus:outline-none focus:shadow-outline`;
 
 export default () => {
+  const dispatch = redux.useDispatch();
+  const { isAuthenticated } = redux.useSelector((state) => state.auth);
+
+  const handleLogout = () => {
+    console.log("i click");
+    dispatch(logout());
+  };
+
   const navLinks = [
     <NavLinks key={1}>
       <NavLink href="#">About</NavLink>
@@ -52,13 +62,22 @@ export default () => {
       <NavLink href="#">Pricing</NavLink>
     </NavLinks>,
     <NavLinks key={2}>
-      <PrimaryLink href="/login">Login</PrimaryLink>
-      <PrimaryLink
-        style={{ backgroundColor: "#FFCC00", marginLeft: "10px" }}
-        href="/register"
-      >
-        Register
-      </PrimaryLink>
+      {isAuthenticated ? (
+        <PrimaryLink style={{ backgroundColor: "red" }} onClick={handleLogout}>
+          Log out
+        </PrimaryLink>
+      ) : (
+        <>
+          <PrimaryLink href="/login">Login</PrimaryLink>
+
+          <PrimaryLink
+            style={{ backgroundColor: "#FFCC00", marginLeft: "10px" }}
+            href="/register"
+          >
+            Register
+          </PrimaryLink>
+        </>
+      )}
     </NavLinks>,
   ];
 
