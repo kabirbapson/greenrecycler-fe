@@ -10,7 +10,7 @@ import illustration from "images/signup-illustration.svg";
 // import twitterIconImageSrc from "images/twitter-icon.png";
 import { ReactComponent as SignUpIcon } from "feather-icons/dist/icons/user-plus.svg";
 import { Formik } from "formik";
-import * as yup from "yup";
+// import * as yup from "yup";
 import { signUpValidationSchema } from "utils/validators";
 
 import { useHistory } from "react-router-dom";

@@ -1,7 +1,7 @@
 import "tailwindcss/dist/base.css";
 import "styles/globalStyles.css";
 import React from "react";
-import { css } from "styled-components/macro"; //eslint-disable-line
+// import { css } from "styled-components/macro"; //eslint-disable-line
 
 /*
  * This is the entry point component of this project. You can change the below exported default App component to any of
@@ -109,7 +109,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 
 // toastify
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
 
 import 'react-toastify/dist/ReactToastify.css';
 

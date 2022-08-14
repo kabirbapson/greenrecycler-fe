@@ -3,22 +3,22 @@ import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import { Container as ContainerBase } from "components/misc/Layouts";
 import tw from "twin.macro";
 import styled from "styled-components";
-import { css } from "styled-components/macro"; //eslint-disable-line
+// import { css } from "styled-components/macro"; //eslint-disable-line
 import illustration from "images/login-illustration.svg";
 // import logo from "images/logo.svg";
 // import googleIconImageSrc from "images/google-icon.png";
 // import twitterIconImageSrc from "images/twitter-icon.png";
 import { ReactComponent as LoginIcon } from "feather-icons/dist/icons/log-in.svg";
-import { api } from "api/config";
+// import { api } from "api/config";
 import * as redux from "react-redux";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 import { Formik } from "formik";
-import * as yup from "yup";
+// import * as yup from "yup";
 
 import { signInValidationSchema } from "utils/validators";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useHistory } from "react-router-dom/";
-import register from "api/register";
+// import register from "api/register";
 import { login } from "store/auth";
 
 const Container = tw(
