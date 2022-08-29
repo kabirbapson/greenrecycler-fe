@@ -5,9 +5,10 @@ import { css } from "styled-components/macro"; //eslint-disable-line
 import { ReactComponent as SvgDotPatternIcon } from "../../images/dot-pattern.svg";
 import * as Yup from "yup";
 import { Formik } from "formik";
+
+import MultipleSelectPlaceholder from "./SelectInput";
 const Container = tw.div`relative`;
 const Content = tw.div`max-w-screen-xl mx-auto py-20 lg:py-24`;
-
 const FormContainer = styled.div`
   ${tw`p-10 sm:p-12 md:p-16 bg-primary-500 text-gray-100 rounded-lg relative`}
   form {
@@ -33,6 +34,8 @@ const InputContainer = tw.div`relative py-5 mt-6`;
 const SelectContainer = tw.div`relative py-3 mt-1`;
 const Label = tw.label`absolute top-0 left-0 tracking-wide font-semibold text-sm`;
 const Input = tw.input`p-4 w-20`;
+// const InputCheckbox = tw.input` p-4 w-20`;
+
 // const TextArea = tw.textarea`h-24 sm:h-full resize-none`;
 const SubmitButton = tw.button`w-full sm:w-32 mt-6 py-3 bg-gray-100 text-primary-500 rounded-full font-bold tracking-wide shadow-lg uppercase text-sm transition duration-300 transform focus:outline-none focus:shadow-outline hover:bg-gray-300 hover:text-primary-700 hocus:-translate-y-px hocus:shadow-xl`;
 
@@ -41,9 +44,8 @@ const SvgDotPattern1 = tw(
 )`absolute bottom-0 right-0 transform translate-y-1/2 translate-x-1/2 -z-10 opacity-50 text-primary-500 fill-current w-24`;
 
 export default () => {
-  // let myRef = this.props
-  //  const  myRef = useRef(null)
-  // const formik = () => { }
+  const [itemTypes, setItemTypes] = React.useState([]);
+
   const validateYup = Yup.object({
     email: Yup.string().email("Email is invalid").required("Email is required"),
     contactperson: Yup.string()
@@ -62,16 +64,13 @@ export default () => {
         contactperson: "",
         locationofmaterial: "",
         weightofmaterial: "",
-        itemType: "others",
-        submissionType: "",
-        expectedTime: "",
+        submissionType: "dropoff",
+        expectedTime: "afternoon",
+        itemTypes: [],
         pickupdate: "",
       }}
       validationSchema={validateYup}
-      onSubmit={(values, { setSubmitting }) => {
-        console.log(JSON.stringify(values, null, 2));
-        setSubmitting(false);
-      }}
+      onSubmit={(formData) => console.log({ ...formData, itemTypes })}
     >
       {({
         values,
@@ -106,42 +105,14 @@ export default () => {
                             touched.contactperson &&
                             errors.contactperson}
                         </InputContainer>
-
-                        {/* Submission Type */}
-                        {/* <select > */}
                         <SelectContainer>
-                          <label htmlFor="itemType">Select Item Type:</label>
-                          <SelectInput
-                            value={values.itemType}
-                            onChange={handleChange}
-                            name="itemType"
-                            id="itemType"
-                          >
-                            <option name="plastic" value="plastic">
-                              Plastic
-                            </option>
-                            <option name="metal" value="metal">
-                              Metal
-                            </option>
-                            <option value="rubber">Rubber</option>
-                            <option name="cartons" value="cartons">
-                              Cartons
-                            </option>
-                            <option name="foodpeels" value="foodpeels">
-                              Food Peels
-                            </option>
-                            <option name="leftovers" value="leftovers">
-                              Leftovers
-                            </option>
-                            <option name="electronics" value="electronics">
-                              Electronics/Gadgets
-                            </option>
-                            <option value="medical">Medical</option>
-                            <option value="others">Others</option>
-                            {/* </select> */}
-                          </SelectInput>
+                          <Label htmlFor="">Select Item Type</Label>
+
+                          <MultipleSelectPlaceholder
+                            itemTypes={itemTypes}
+                            setItemTypes={setItemTypes}
+                          />
                         </SelectContainer>
-                        {/* Select Item Type */}
                         <SelectContainer>
                           <label htmlFor="submissionType">
                             Submission Type:
@@ -165,6 +136,8 @@ export default () => {
                             value={values.expectedTime}
                             onChange={handleChange}
                             name="expectedTime"
+                            labelId="demo-simple-select-standard-label"
+                            id="demo-simple-select-standard"
                           >
                             <option name="morning" value="morning">
                               Morning
@@ -205,35 +178,27 @@ export default () => {
                             value={values.pickupdate}
                             onChange={handleChange}
                             id="pickupdate"
-                            type="text"
+                            type="date"
+                            min={new Date()}
                             name="pickupdate"
-                            placeholder="e.g. 10 kg"
                           />
-                        </InputContainer>
-                      </Column>
-                    </TwoColumn>
-                    <TwoColumn>
-                      <Column>
-                        <InputContainer>
-                          <Label htmlFor="weightofmaterial">
-                            How heavy is the material
-                          </Label>
-                          <Input
-                            placeholder="e.g. 10 kg"
-                            type="text"
-                            name="weightofmaterial"
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            value={values.weightofmaterial}
-                          />
-                          {errors.weightofmaterial &&
-                            touched.weightofmaterial &&
-                            errors.weightofmaterial}
-                        </InputContainer>
-                        {/* </InputContainer> */}
-                      </Column>
-                      <Column>
-                        <InputContainer>
+                          <InputContainer>
+                            <Label htmlFor="weightofmaterial">
+                              How heavy is the material
+                            </Label>
+                            <Input
+                              placeholder="e.g. 10 kg"
+                              type="text"
+                              name="weightofmaterial"
+                              onChange={handleChange}
+                              onBlur={handleBlur}
+                              value={values.weightofmaterial}
+                            />
+                            {errors.weightofmaterial &&
+                              touched.weightofmaterial &&
+                              errors.weightofmaterial}
+                          </InputContainer>
+                          <InputContainer>
                           <Label htmlFor="locationofmaterial">
                             Location of Pick-up of Drop-off{" "}
                           </Label>
@@ -250,8 +215,10 @@ export default () => {
                             touched.locationofmaterial &&
                             errors.locationofmaterial}
                         </InputContainer>
+                        </InputContainer>
                       </Column>
                     </TwoColumn>
+                   
 
                     <SubmitButton
                       disabled={isSubmitting}
