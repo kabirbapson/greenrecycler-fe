@@ -44,8 +44,20 @@ const Heading = styled.h1`
 `;
 
 const PrimaryAction = tw.button`rounded-full px-8 py-3 mt-10 text-sm sm:text-base sm:mt-16 sm:px-8 sm:py-4 bg-gray-100 font-bold shadow transition duration-300 bg-primary-500 text-gray-100 hocus:bg-primary-700 hocus:text-gray-200 focus:outline-none focus:shadow-outline`;
+// var my_element = document.getElementById("my_element");
 
 export default () => {
+  const scrollToRef = () => {
+    const scroll = document.querySelector('#collectionForm')
+    scroll.scrollIntoView({behavior: 'smooth', block: 'start'})
+  };
+  // const executeScroll = () => (
+  //   <>
+  //     <div>
+  //       <a href="#collectionForm"></a>
+  //     </div>
+  //   </>
+  // );
   const dispatch = redux.useDispatch();
   const { isAuthenticated } = redux.useSelector((state) => state.auth);
 
@@ -88,7 +100,11 @@ export default () => {
         <StyledHeader links={navLinks} />
         <Content>
           <Heading>Welcome to Green Recycler</Heading>
-          <PrimaryAction>Submit Material</PrimaryAction>
+          <PrimaryAction onClick={scrollToRef}>
+            {/* <a href="#collectionForm"> */}
+            Submit Material
+            {/* </a> */}
+          </PrimaryAction>
         </Content>
       </HeroContainer>
     </Container>
