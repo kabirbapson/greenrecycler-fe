@@ -66,7 +66,6 @@ const IllustrationImage = styled.div`
 
 const registerInitialValue = {
   fullName: "",
-  username: "",
   email: "",
   password: "",
 };
@@ -104,13 +103,13 @@ export default ({
   }, [history, isAuthenticated]);
 
   const signInUser = (form) => {
-    const { fullName, username, email, password } = form;
+    const { fullName, phone_number, email, password } = form;
 
     dispatch(
       register({
         first_name: fullName.split(" ")[0],
         last_name: fullName.split(" ")[1],
-        username,
+        phone_number,
         email,
         password,
       })
@@ -162,19 +161,20 @@ export default ({
                           {errors.email}
                         </p>
                       )}
-                      {/* <Input type="password" placeholder="Password" /> */}
-                      <Input
-                        type="text"
-                        placeholder="Username"
-                        name="username"
-                        value={values.username}
-                        onChange={handleChange("username")}
+                    
+                    <Input
+                        type="phone"
+                        placeholder="Phone Number"
+                        name="phone_number"
+                        value={values.phone_number}
+                        onChange={handleChange("phone_number")}
                       />
-                      {errors.username && (
+                      {errors.phone_number && (
                         <p tw=" text-sm text-red-600 text-center">
-                          {errors.username}
+                          {errors.phone_number}
                         </p>
                       )}
+      
                       <Input
                         type="password"
                         placeholder="Password"

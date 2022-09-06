@@ -26,6 +26,7 @@ export const register = createAsyncThunk(
       "/api/v1/auth/register",
       userRegisterDetails
     );
+    console.log(response)
     if (!response.ok) {
       toast.error("fail to register into Green Recycler please try again");
       return rejectWithValue(response.problem);

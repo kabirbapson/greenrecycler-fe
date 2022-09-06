@@ -107,6 +107,7 @@ export default ({
   }, [history, isAuthenticated]);
 
   const signInUser = (form) => {
+    
     dispatch(login(form));
   };
 
@@ -137,11 +138,11 @@ export default ({
                   }) => (
                     <Form>
                       <Input
-                        type="username"
-                        name="username"
-                        placeholder="Username"
-                        value={values.username}
-                        onChange={handleChange("username")}
+                        type="email"
+                        name="email"
+                        placeholder="Email"
+                        value={values.email}
+                        onChange={handleChange("email")}
                       />
                       {errors.username && (
                         <p tw=" text-sm text-red-600 text-center">
