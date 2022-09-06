@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import { Formik } from "formik";
 
 import MultipleSelectPlaceholder from "./SelectInput";
+import { submitMaterials } from "api/user.api";
 const Container = tw.div`relative`;
 const Content = tw.div`max-w-screen-xl mx-auto py-20 lg:py-24`;
 const FormContainer = styled.div`
@@ -43,34 +44,50 @@ const SvgDotPattern1 = tw(
   SvgDotPatternIcon
 )`absolute bottom-0 right-0 transform translate-y-1/2 translate-x-1/2 -z-10 opacity-50 text-primary-500 fill-current w-24`;
 
+
+const validateYup = Yup.object({
+  email: Yup.string().email("Email is invalid").required("Email is required"),
+  contact_person: Yup.string()
+    .min(5, "invalid name")
+    .required("Contact Person is required"),
+  location_of_material: Yup.string()
+    .min(5, "invalid")
+    .required("Location is required"),
+  weight_of_material: Yup.string().min("2"),
+});
+
 export default () => {
+  const resetFormRef = React.useRef(null)
   const [itemTypes, setItemTypes] = React.useState([]);
 
-  const validateYup = Yup.object({
-    email: Yup.string().email("Email is invalid").required("Email is required"),
-    contactperson: Yup.string()
-      .min(5, "invalid name")
-      .required("Contact Person is required"),
-    locationofmaterial: Yup.string()
-      .min(5, "innvalid")
-      .required("Location is required"),
-    weightofmaterial: Yup.string().min("2"),
-  });
+  const submitMaterial = async(data) => {
+    console.log({ ...data, item_type: itemTypes.toString() });
+    const result = await submitMaterials({ ...data, item_type: itemTypes.toString() });
+    
+    if (result) {
+      alert('thank you for submitting material we will call you back');
+      resetFormRef.current.click()
+      return;
+    }
+
+    alert('oh gosh it failed try aggain')
+    // resetFormRef.current.clicked()
+  }
 
   return (
     <Formik
       initialValues={{
         email: "",
-        contactperson: "",
-        locationofmaterial: "",
-        weightofmaterial: "",
-        submissionType: "dropoff",
-        expectedTime: "afternoon",
-        itemTypes: [],
-        pickupdate: "",
+        contact_person: "",
+        location_of_material: "",
+        weight_of_material: "",
+        submission_type: "dropoff",
+        expected_time: "afternoon",
+        item_type: '',
+        pickup_date: "",
       }}
       validationSchema={validateYup}
-      onSubmit={(formData) => console.log({ ...formData, itemTypes })}
+      onSubmit={(formData) => submitMaterial(formData)}
     >
       {({
         values,
@@ -79,6 +96,7 @@ export default () => {
         handleChange,
         handleBlur,
         handleSubmit,
+        resetForm,
         isSubmitting,
         /* and other goodies */
       }) => (
@@ -94,16 +112,16 @@ export default () => {
                         <InputContainer>
                           <Label htmlFor="name-input">Contact Person</Label>
                           <Input
-                            value={values.contactperson}
+                            value={values.contact_person}
                             placeholder="E.g. Bappi McDonald"
                             type="text"
-                            name="contactperson"
+                            name="contact_person"
                             onChange={handleChange}
                             onBlur={handleBlur}
                           />
-                          {errors.contactperson &&
-                            touched.contactperson &&
-                            errors.contactperson}
+                          {errors.contact_person &&
+                            touched.contact_person &&
+                            errors.contact_person}
                         </InputContainer>
                         <SelectContainer>
                           <Label htmlFor="">Select Item Type</Label>
@@ -118,9 +136,9 @@ export default () => {
                             Submission Type:
                           </label>
                           <SelectInput
-                            value={values.submissionType}
+                            value={values.submission_type}
                             onChange={handleChange}
-                            name="submissionType"
+                            name="submission_type"
                           >
                             <option name="pickup" value="pickup">
                               Pick Up
@@ -131,11 +149,11 @@ export default () => {
                           </SelectInput>
                         </SelectContainer>
                         <SelectContainer>
-                          <label htmlFor="expectedTime">Expected Time:</label>
+                          <label htmlFor="expected_time">Expected Time:</label>
                           <SelectInput
-                            value={values.expectedTime}
+                            value={values.expected_time}
                             onChange={handleChange}
-                            name="expectedTime"
+                            name="expected_time"
                             labelId="demo-simple-select-standard-label"
                             id="demo-simple-select-standard"
                           >
@@ -171,49 +189,49 @@ export default () => {
 
                         {/* calennddar pickaer */}
                         <InputContainer>
-                          <Label htmlFor="pickupdate">
+                          <Label htmlFor="pickup_date">
                             Expected date for pickup/dropoff
                           </Label>
                           <Input
-                            value={values.pickupdate}
+                            value={values.pickup_date}
                             onChange={handleChange}
-                            id="pickupdate"
+                            id="pickup_date"
                             type="date"
                             min={new Date()}
-                            name="pickupdate"
+                            name="pickup_date"
                           />
                           <InputContainer>
-                            <Label htmlFor="weightofmaterial">
+                            <Label htmlFor="weight_of_material">
                               How heavy is the material
                             </Label>
                             <Input
                               placeholder="e.g. 10 kg"
                               type="text"
-                              name="weightofmaterial"
+                              name="weight_of_material"
                               onChange={handleChange}
                               onBlur={handleBlur}
-                              value={values.weightofmaterial}
+                              value={values.weight_of_material}
                             />
-                            {errors.weightofmaterial &&
-                              touched.weightofmaterial &&
-                              errors.weightofmaterial}
+                            {errors.weight_of_material &&
+                              touched.weight_of_material &&
+                              errors.weight_of_material}
                           </InputContainer>
                           <InputContainer>
-                          <Label htmlFor="locationofmaterial">
+                          <Label htmlFor="location_of_material">
                             Location of Pick-up of Drop-off{" "}
                           </Label>
                           <Input
                             placeholder="e.g, Waterboard before Karu bridger"
                             type="text"
-                            value={values.locationofmaterial}
-                            name="locationofmaterial"
-                            onChange={handleChange("locationofmaterial")}
+                            value={values.location_of_material}
+                            name="location_of_material"
+                            onChange={handleChange("location_of_material")}
                             onBlur={handleBlur}
                             // value={values.locationofmaterial}
                           />
-                          {errors.locationofmaterial &&
-                            touched.locationofmaterial &&
-                            errors.locationofmaterial}
+                          {errors.location_of_material &&
+                            touched.location_of_material &&
+                            errors.location_of_material}
                         </InputContainer>
                         </InputContainer>
                       </Column>
@@ -222,11 +240,12 @@ export default () => {
 
                     <SubmitButton
                       disabled={isSubmitting}
-                      type="submit"
-                      value="Submit"
+                      type='submit'
+                      name="submit"
                     >
                       Submit
                     </SubmitButton>
+                    <button ref={resetFormRef} type="hidden" onClick={resetForm} />
                   </form>
                 </div>
                 <SvgDotPattern1 />
